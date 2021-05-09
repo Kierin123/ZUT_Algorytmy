@@ -1,0 +1,29 @@
+Zaimplementowanie następujących metod sortowania:
+
+1) bąbelkowe "bubble sort" :
+
+Prototyp funkcji:
+    void bubble_sort(int * arr, int arr_size);
+
+2) przez wybieranie "selection sort":
+
+Prototyp funkcji:
+    void selection_sort(int * arr, int arr_size);
+
+3) przez wstawianie "insertion sort":
+
+Prototyp funkcji:
+    void insertion_sort(int * arr, int arr_size);
+
+Pliki :
+- my_sort.h - plik z interfejsem, 
+- my_sort.c - plik z implementacją,
+- main.c - plik z funkcją main().
+
+my_sort.h - dostarczony przeze mnie, !nie można go modyfikować!.
+my_sort.c - Państwa implementacja - !do dostarczenia!.
+main.c - konieczny dla programu, nie dostarczają go Państwo, każdy ma własny.
+
+Państwo dostarczają tylko plik my_sort.c
+
+gcc -std=c11 -Wall -Wpedantic main.c my_sort.c -o output
