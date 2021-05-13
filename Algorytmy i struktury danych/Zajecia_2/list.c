@@ -32,16 +32,6 @@ void destroy_list(List **list)
     free(*list);
 }
 
-void clear_list(List *list)
-{
-    int listSize = count_elements(list);
-
-    for (int i = listSize - 1; i >= 0; i--)
-    {
-        remove_nth_element(list, i);
-    }
-}
-
 int count_elements(List *list)
 {
     Node *lastNode = list->head;
@@ -53,14 +43,14 @@ int count_elements(List *list)
     else
     {
         count++;
-        //  printf("COUNTING: Head: %p Next: %p Elem: %d \n", (void *)list->head, (void *)list->head->next, list->head->elem);
+        //printf("COUNTING: Head: %p Next: %p Elem: %d \n", (void *)list->head, (void *)list->head->next, list->head->elem);
     }
 
     while (lastNode->next != NULL)
     {
         count++;
         lastNode = lastNode->next;
-        //  printf("COUNTING: Head: %p Next: %p Elem: %d \n", (void *)list->head, (void *)list->head->next, list->head->elem);
+        //printf("COUNTING: Head: %p Next: %p Elem: %d \n", (void *)list->head, (void *)list->head->next, list->head->elem);
     }
 
     return count;
@@ -68,10 +58,12 @@ int count_elements(List *list)
 
 void append_to_list(List *list, int elem)
 {
+    //newNode - new allocated mamory for next node in list. Node is added at the end of the list
+    //To reach the last element we use the while() loop and iterate (lastNode=lastNode.next)
+    //until lastNode.next is NULL - last element of list. With this mechanism works almost every function in this library
+    //We assign the lastNode.next by the adress of the newNode, for newNode.next we assign NULL.
     Node *newNode = (Node *)malloc(sizeof(Node));
     Node *lastNode = list->head;
-
-    //printf("%d Head: %p \n", a, (void *)list->head);
 
     newNode->next = NULL;
     newNode->elem = elem;
@@ -88,6 +80,7 @@ void append_to_list(List *list, int elem)
         }
         lastNode->next = newNode;
     }
+
     //printf("%d Last: %p \n", a, (void *)lastNode);
     //printf("%d Head: %p \n", a, (void *)list->head);
 }
@@ -106,7 +99,7 @@ int get_nth_element(List *list, int index)
 
 void remove_nth_element(List *list, int index)
 {
-    Node *tempNode = list->head;
+    Node *tempNode = NULL;
     Node *lastNode = list->head;
 
     //Exception for list[0] element.
@@ -119,13 +112,9 @@ void remove_nth_element(List *list, int index)
     }
     else
     {
-        for (int i = 0; i < (index - 1); i++)
-        {
-            tempNode = tempNode->next;
-        }
-
         for (int i = 0; i < index; i++)
         {
+            tempNode = lastNode;
             lastNode = lastNode->next;
         }
 
@@ -133,6 +122,16 @@ void remove_nth_element(List *list, int index)
     }
     //Free allocated memory for the indicated Node by *lastNode
     free(lastNode);
+}
+
+void clear_list(List *list)
+{
+    int listSize = count_elements(list);
+
+    for (int i = listSize - 1; i >= 0; i--)
+    {
+        remove_nth_element(list, i);
+    }
 }
 
 void insert_to_list(List *list, int elem, int index)
@@ -169,9 +168,9 @@ void sort_list(List *list)
     // j - (1) loop iterator
     // i - (2) loop iterator
     // p - algorithm stop flag
-    // lastNode - element [j-1] - variable to work with sorting on the linked list element. 
+    // lastNode - element [j-1] - variable to work with sorting on the linked list element.
     //                            Variable pointing the element before the nextNode.
-    // nextNode - element [j] - variable to work with sorting on the linked list element. 
+    // nextNode - element [j] - variable to work with sorting on the linked list element.
     Node *lastNode = NULL;
     Node *nextNode = list->head;
 
@@ -225,7 +224,7 @@ void reverse_list(List *list)
         During this itaration we replace the adresses from the field "next" to reverse the direction of the list.
         At the last 
     */
-    Node *tempNode = NULL;              
+    Node *tempNode = NULL;
     Node *nextNode = list->head->next;
     Node *lastNode = list->head;
 
