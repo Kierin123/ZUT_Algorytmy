@@ -136,7 +136,7 @@ void clear_list(List *list)
 
 void insert_to_list(List *list, int elem, int index)
 {
-    if (index > count_elements(list))
+    if (index > count_elements(list) || index < 0)
     {
         printf("Wrong index! Cannot add element.\n");
         return;
