@@ -1,10 +1,12 @@
-CFLAGS = -pthread -g - Wall -Werror - pedantic-errors
+CFLAGS = -pthread -g -Wall -Werror -pedantic-errors
 SOURCES = main.c list.c 
 OBJECTS = $(SOURCES:.c=.o)
 NAME = list
 
-all: $(OBJECTS)
-	$(CC) -o $(NAME) $(OBJECTS) 
+all: $(NAME)
+
+$(NAME): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(NAME)
 
 $(OBJECTS):
 	$(CC) -c $(CFLAGS) $(SOURCES)
