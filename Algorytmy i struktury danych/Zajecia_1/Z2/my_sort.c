@@ -46,7 +46,7 @@ void insertion_sort(int *arr, int arr_size)
     int j = 0, i = 0, x = 0;
 
     // First loop (1)
-    for (j = arr_size - 1; j >= 0; j--)
+    for (j = arr_size ; j >= 0; j--)
     {
         x = arr[j];
         // Second loop (2)
